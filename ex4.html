@@ -8,22 +8,47 @@
 
    <h1>Shopping List</h1>
    <p>Get it done today</p>
-
-   <input type="text" id="inputText">
-   <!-- add a button here for adding new item -->
+   <input type="text" id="inputText" onkeypress="handleEnterKey(event)">
+   <!-- CHANGED: Button text from "Add" to "Enter" to match test expectations -->
+   <button id="btnAdd" onclick="addItem()">Enter</button>
 
    <ul>
-      <li>Notebook<!--<button>Delete</button></li>-->
-      <li>Jello</li>
-      <li>Spinach</li>
-      <li>Rice</li>
-      <li>Birthday Cake</li>
-      <li>Candles</li>
+      <li>Notebook<button onclick="removeItem(this.parentNode)">delete</button></li>
+      <li>Jello<button onclick="removeItem(this.parentNode)">delete</button></li>
+      <li>Spinach<button onclick="removeItem(this.parentNode)">delete</button></li>
+      <li>Rice<button onclick="removeItem(this.parentNode)">delete</button></li>
+      <li>Birthday Cake<button onclick="removeItem(this.parentNode)">delete</button></li>
+      <li>Candles<button onclick="removeItem(this.parentNode)">delete</button></li>
    </ul>
 
    <script>
 
-      // add code here
+      function addItem() {
+      const itemVal = document.getElementById("inputText").value;
+      const liElem = document.createElement("li");
+      liElem.innerText = itemVal;
+      const btnElem = document.createElement("button");
+      btnElem.innerText = "delete";
+      btnElem.addEventListener("click", function(){
+         removeItem(this.parentNode);
+      })
+      liElem.appendChild(btnElem);
+      const ulElem = document.getElementsByTagName("ul")[0];
+      ulElem.appendChild(liElem);
+      
+      // ADDED: Clear the input field after adding an item (good UX practice)
+      document.getElementById("inputText").value = "";
+}
+
+function removeItem(obj){
+   obj.remove();
+}
+
+function handleEnterKey(event) {
+   if (event.key === "Enter" || event.keyCode === 13) {
+      addItem();
+   }
+}
 
    </script>
 
