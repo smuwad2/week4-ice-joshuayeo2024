@@ -18,7 +18,17 @@
 
     <script>
         
-        // add code here
+        function addItem(){
+            const ulElem = document.getElementsByTagName("ul")[0];
+            const itemVal = document.getElementById("select_item").value;
+            const liElem = document.createElement("li");
+            liElem.innerText = itemVal;
+            ulElem.appendChild(liElem);
+        }
+
+
+        let item = document.getElementById("select_item");
+        item.addEventListener("change", addItem)
         
         
     </script>
